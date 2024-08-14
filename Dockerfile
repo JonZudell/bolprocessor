@@ -16,9 +16,13 @@ RUN chmod +x xampp-installer.run
 RUN ./xampp-installer.run
 
 WORKDIR /opt/lampp/htdocs/bolprocessor/
-COPY ./ /bolprocessor/
-
 # copy from the bp3-ctests image
 COPY --from=bp3-ctests /bp3-ctests /opt/lampp/htdocs/bolprocessor/bp3-ctests
-COPY --from=php-frontend /php-frontend/php /opt/lampp/htdocs/bolprocessor/php-frontend
+COPY --from=php-frontend /php-frontend/php /opt/lampp/htdocs/bolprocessor/
 COPY --from=php-frontend /php-frontend/csound_resources /opt/lampp/htdocs/bolprocessor/php-frontend/csound_resources
+
+# copy the bolprocessor source code
+COPY ./source/ /opt/lampp/htdocs/bolprocessor/
+COPY ./Makefile /opt/lampp/htdocs/bolprocessor/
+COPY ./change_permissions.sh /opt/lampp/htdocs/bolprocessor/
+COPY ./BP2_help.txt /opt/lampp/htdocs/bolprocessor/
